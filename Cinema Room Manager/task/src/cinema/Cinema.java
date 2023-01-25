@@ -4,23 +4,18 @@ import java.util.Scanner;
 
 public class Cinema {
 
-    public static int numberChoise = 0;
-    public static int rowChoice = 0;
-    public static int[][] zal;
-    public static int rows, lines;
-
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of rows:\n" +
                 "> ");
-        rows = scanner.nextInt();
+        int rows = scanner.nextInt();
         System.out.print("Enter the number of seats in each row:\n" +
                 "> ");
-        lines = scanner.nextInt();
+        int lines = scanner.nextInt();
 
         // 0 - empty
-        createZal(rows, lines);
+        int[][] zal = createZal(rows, lines);
 
         // Menu
         boolean cicle = true;
@@ -30,13 +25,13 @@ public class Cinema {
                     cicle = false;
                     break;
                 case 1:
-                    printZal();
+                    printZal(zal);
                     break;
                 case 2:
-                    buyTicket();
+                    buyTicket(zal, lines, rows);
                     break;
                 case 3:
-                    statistics();
+                    statistics(zal, lines, rows);
                     break;
             }
         }
@@ -44,7 +39,7 @@ public class Cinema {
 
     }
 
-    private static void statistics() {
+    private static void statistics(int[][] zal, int lines, int rows) {
 
         int countPurch = 0;
         float percentage = 0;
@@ -74,16 +69,21 @@ public class Cinema {
         System.out.println("Total income: $" + totalIncome);
     }
 
-    private static void createZal(int rows, int lines) {
-        zal = new int[rows][lines];
+    private static int[][] createZal(int rows, int lines) {
+        int[][] zal = new int[rows][lines];
         for (int i = 0; i < zal.length; i++) {
             for (int j = 0; j < zal[i].length; j++) {
                 zal[i][j] = 0;
             }
         }
+        return zal;
     }
 
-    private static void buyTicket() {
+    private static void buyTicket(int[][] zal, int lines, int rows) {
+
+        int numberChoise;
+        int rowChoice;
+
         Scanner scanner = new Scanner(System.in);
 
         int priceTicket;
@@ -98,10 +98,10 @@ public class Cinema {
 
         if (rows < rowChoice || lines < numberChoise) {
             System.out.println("\nWrong input!\n");
-            buyTicket();
+            buyTicket(zal, lines, rows);
         } else if (zal[rowChoice - 1][numberChoise - 1] == 1) {
             System.out.println("\nThat ticket has already been purchased!\n");
-            buyTicket();
+            buyTicket(zal, lines, rows);
         } else {
 
             priceTicket = (lines * rows) <= 60 ? 10 : (rows / 2) >= rowChoice ? 10 : 8;
@@ -110,7 +110,7 @@ public class Cinema {
             // set B
             zal[rowChoice - 1][numberChoise - 1] = 1;
 
-            printZal();
+            printZal(zal);
         }
     }
 
@@ -126,7 +126,7 @@ public class Cinema {
         return scanner.nextInt();
     }
 
-    private static void printZal() {
+    private static void printZal(int[][] zal) {
 
         // Print head numbers
         System.out.println("\nCinema:");
