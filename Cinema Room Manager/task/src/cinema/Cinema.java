@@ -46,8 +46,11 @@ public class Cinema {
         int currentIncome = 0;
         int totalIncome = 0;
 
-        for (int i = 0; i < zal.length; i++) {
-            for (int j = 0; j < zal[i].length; j++) {
+        int sizeArray = zal == null ? 0 : zal.length;
+
+        for (int i = 0; i < sizeArray; i++) {
+            int sizeArrayIn = zal[i] == null ? 0 : zal[i].length;
+            for (int j = 0; j < sizeArrayIn; j++) {
                 if (zal[i][j] == 1) {
                     countPurch++;
                     currentIncome += (lines * rows) <= 60 ? 10 : (rows / 2) > i ? 10 : 8;
@@ -71,8 +74,12 @@ public class Cinema {
 
     private static int[][] createZal(int rows, int lines) {
         int[][] zal = new int[rows][lines];
-        for (int i = 0; i < zal.length; i++) {
-            for (int j = 0; j < zal[i].length; j++) {
+
+        int sizeArray = zal == null ? 0 : zal.length;
+
+        for (int i = 0; i < sizeArray; i++) {
+            int sizeArrayIn = zal[i] == null ? 0 : zal[i].length;
+            for (int j = 0; j < sizeArrayIn; j++) {
                 zal[i][j] = 0;
             }
         }
@@ -131,14 +138,17 @@ public class Cinema {
         // Print head numbers
         System.out.println("\nCinema:");
         System.out.print(" ");
-        for (int i = 1; i < zal[0].length + 1; i++) {
+        int sizeArray0 = zal[0] == null ? 0 : zal[0].length;
+        for (int i = 1; i < sizeArray0 + 1; i++) {
             System.out.print(" " + i);
         }
         System.out.println();
 
-        for (int i = 0; i < zal.length; i++) {
+        int sizeArray = zal == null ? 0 : zal.length;
+        for (int i = 0; i < sizeArray; i++) {
             System.out.print(i + 1);
-            for (int j = 0; j < zal[i].length; j++) {
+            int sizeArrayIn = zal[i] == null ? 0 : zal[i].length;
+            for (int j = 0; j < sizeArrayIn; j++) {
                 if (zal[i][j] == 1) {
 //                if (rowChoice > 0 && i == (rowChoice - 1) && j == numberChoise - 1) {
                     System.out.print(" " + "B");
